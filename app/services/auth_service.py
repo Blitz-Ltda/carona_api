@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from app.models.usuario import Usuario
-from app.core.security import verificar_senha, criar_token_jwt
+from app.shared.security import verificar_senha, criar_token_jwt
 
 def autenticar_usuario(db: Session, email: str, senha: str):
     usuario = db.query(Usuario).filter(Usuario.email == email).first()

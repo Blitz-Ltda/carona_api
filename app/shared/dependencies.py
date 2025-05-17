@@ -1,4 +1,4 @@
-from app.db.session import dbConnectionHandler
+from app.shared.session import dbConnectionHandler
 
 def get_db():
     db = dbConnectionHandler.__enter__()

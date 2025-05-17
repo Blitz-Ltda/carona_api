@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from app.api.v1.endpoints.usuario import auth, passageiros, motoristas
 from app.api.v1.endpoints.veiculos import veiculos
 from app.api.v1.endpoints.viagens import ofertas, reservas
+from app.shared.exception import NotFoundError, not_found_exception_handler
 
 app = FastAPI(title="Aplicação de Transporte Modular")
 
@@ -16,3 +17,8 @@ app.include_router(veiculos.router, prefix="/api/v1/veiculos", tags=["Veiculos"]
 # Rotas de Viagens
 app.include_router(ofertas.router, prefix="/api/v1/viagens/ofertas", tags=["Ofertas"])
 app.include_router(reservas.router, prefix="/api/v1/viagens/reservas", tags=["Reservas"])
+
+app.add_exception_handler(
+    NotFoundError,
+    not_found_exception_handler
+)

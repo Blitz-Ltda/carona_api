@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
-from app.db.base import Base
+from app.shared.base import Base
 
-class Veiculos(Base):
+class Veiculo(Base):
     __tablename__ = "veiculos"
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)

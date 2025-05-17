@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from app.core.config import settings
+from app.shared.config import settings
 
 class DBConnectionHandler:
     def __init__(self):

@@ -1,5 +1,5 @@
-from app.db.session import DBConnectionHandler as db
-from app.db.base import Base
+from app.shared.session import DBConnectionHandler as db
+from app.shared.base import Base
 from app.models import usuario, veiculo, viagem
 
 class DBInit:

@@ -1,8 +1,9 @@
+from app.shared.dependencies import get_db
+from app.schemas.usuario import UsuarioRequest, UsuarioResponse
+from app.services.usuario_service import *
+from app.shared.exception import NotFoundError
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from app.core.dependencies import get_db
-from app.schemas.usuario import UsuarioCreate, UsuarioResponse
-from app.services.usuario_service import create_usuario, get_usuarios
 from typing import List
 
 router = APIRouter()
@@ -12,5 +13,24 @@ def get_passageiros(db: Session = Depends(get_db)):
     return get_usuarios(db=db)
 
 @router.post('/', status_code=201, response_model=UsuarioResponse)
-def create_passageiro(passageiro: UsuarioCreate, db: Session = Depends(get_db)):
+def create_passageiro(passageiro: UsuarioRequest, db: Session = Depends(get_db)):
     return create_usuario(db=db, usuario=passageiro)
+
+@router.put('/{usuario_id}', status_code=200 ,response_model=UsuarioResponse)
+def update_passageiro(usuario_id: int, passageiro: UsuarioRequest, db: Session = Depends(get_db)):
+    usuario = _get_usuario_by_id(usuario_id=usuario_id, db=db)
+
+    return update_usuario(usuario_db=usuario, db=db, usuario=passageiro)
+
+@router.delete('/{usuario_id}', status_code=204)
+def delete_passageiro(usuario_id: int, passageiro: UsuarioRequest, db: Session = Depends(get_db)):
+    passageiro = _get_usuario_by_id(usuario_id=usuario_id, db=db)
+
+    return delete_usuario(usuario_db=passageiro, db=db)
+
+def _get_usuario_by_id(usuario_id: int, db: Session = Depends(get_db)):
+    usuario = get_usuario(usuario_id=usuario_id, db=db)
+    if not usuario:
+        raise NotFoundError("Usuario")
+    
+    return usuario
