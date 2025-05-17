@@ -1,7 +1,7 @@
 from pydantic import BaseModel, EmailStr
 from typing import Optional
 
-class UsuarioBase(BaseModel):
+class UsuarioRequest(BaseModel):
     nome: str
     email: EmailStr
     senha: str
@@ -10,13 +10,10 @@ class UsuarioBase(BaseModel):
     contato_emergencia: str
     descricao: Optional[str] = None
 
-class UsuarioCreate(UsuarioBase):
-    pass
-
-class UsuarioResponse(UsuarioBase):
+class UsuarioResponse(BaseModel):
     id: int
     nome: str
     email: EmailStr
 
     class Config:
-        from_attributes = False
+        from_attributes = True

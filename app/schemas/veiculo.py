@@ -11,7 +11,7 @@ class VeiculoBase(BaseModel):
     tipo: str
     motorista_id: int
 
-class VeiculoCreate(VeiculoBase):
+class VeiculoRequest(VeiculoBase):
     pass
 
 class VeiculoResponse(VeiculoBase):

@@ -3,9 +3,6 @@ from app.api.v1.endpoints.usuario import auth, passageiros, motoristas
 from app.api.v1.endpoints.veiculos import veiculos
 from app.api.v1.endpoints.viagens import ofertas, reservas
 
-from app.db.init_db import db_init
-db_init.create_db()
-
 app = FastAPI(title="Aplicação de Transporte Modular")
 
 # Rotas de Usuário
