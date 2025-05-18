@@ -1,5 +1,6 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
 from app.shared.base import Base
+from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy.orm import relationship
 
 class Veiculo(Base):
     __tablename__ = "veiculos"
@@ -14,3 +15,6 @@ class Veiculo(Base):
     capacidade = Column(Integer, nullable=False)
     tipo = Column(String, nullable=False)
     motorista_id = Column(Integer, ForeignKey("usuarios.id"))
+
+    motorista = relationship("Usuario", back_populates="veiculos")
+    viagens = relationship("Viagem", back_populates="veiculo")

@@ -1,4 +1,5 @@
 from sqlalchemy import Column, Integer, String
+from sqlalchemy.orm import relationship
 from app.shared.base import Base
 
 class Usuario(Base):
@@ -10,5 +11,15 @@ class Usuario(Base):
     senha = Column(String, nullable=False)
     genero = Column(String, nullable=False)
     telefone = Column(String, nullable=False)
-    contato_emergencia = Column(String, nullable=False)
+    matricula = Column(String, unique=True, nullable=False)
+    status = Column(String, nullable=False, default="inativo")  # Ex: "ativo", "inativo"
+    nome_emergencia = Column(String, nullable=True)
+    telefone_emergencia = Column(String, nullable=True)
     descricao = Column(String, nullable=True)
+    cnh = Column(String, nullable=True)
+    categoria_cnh = Column(String, nullable=True)
+    data_validade_cnh = Column(String, nullable=True)
+
+    # Relacionamentos
+    viagens = relationship("Viagem", back_populates="motorista")
+    veiculos = relationship("Veiculo", back_populates="motorista")

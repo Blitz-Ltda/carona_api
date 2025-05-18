@@ -7,7 +7,9 @@ class UsuarioRequest(BaseModel):
     senha: str
     genero: str
     telefone: str
-    contato_emergencia: str
+    matricula: str
+    nome_emergencia: str
+    telefone_emergencia: str
     descricao: Optional[str] = None
 
 class UsuarioResponse(BaseModel):
@@ -17,3 +19,8 @@ class UsuarioResponse(BaseModel):
 
     class Config:
         from_attributes = True
+
+class MotoristaRequest(UsuarioRequest):
+    cnh: str
+    categoria_cnh: str
+    data_validade_cnh: str

@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from app.schemas.viagem import ViagemCreate, ViagemResponse
+from app.schemas.viagem import ViagemRequest, ViagemResponse
 from typing import List
 
 router = APIRouter()
@@ -11,6 +11,6 @@ def listar_ofertas():
     return ofertas
 
 @router.post("/", status_code=201)
-def criar_oferta(oferta: ViagemCreate):
+def criar_oferta(oferta: ViagemRequest):
     ofertas.append(oferta)
     return oferta
