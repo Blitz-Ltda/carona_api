@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from app.models.viagem import Viagem
+from app.models.viagem import Viagem, viagem_status_enum
 from app.schemas.viagem import ViagemRequest, ViagemResponse
 
 def create_viagem(db: Session, viagem: ViagemRequest) -> ViagemResponse:
@@ -7,6 +7,7 @@ def create_viagem(db: Session, viagem: ViagemRequest) -> ViagemResponse:
     db.add(nova_viagem)
     db.commit()
     db.refresh(nova_viagem)
+
     return nova_viagem
 
 def get_viagem(viagem_id: int, db: Session) -> ViagemResponse:
@@ -29,3 +30,10 @@ def delete_viagem(viagem_db: Viagem, db: Session) -> int:
     db.commit()
 
     return viagem_db.id
+
+def finalizar_viagem(viagem_db: Viagem, db: Session) -> ViagemResponse:
+    viagem_db.status = viagem_status_enum.enums[3]
+    db.commit()
+    db.refresh(viagem_db)
+
+    return viagem_db
