@@ -4,7 +4,7 @@ from sqlalchemy.types import Enum as SQLEnum
 from sqlalchemy.orm import relationship
 
 viagem_status_enum = SQLEnum(
-    "pendente", "confirmada", "cancelada", "finalizada",
+    "pendente", "confirmada", "cancelada", "finalizada", "em_andamento",
     name="viagemstatus"
 )
 
@@ -24,3 +24,4 @@ class Viagem(Base):
 
     motorista = relationship("Usuario", back_populates="viagens")
     veiculo = relationship("Veiculo", back_populates="viagens")
+    reservas = relationship("Reserva", back_populates="viagem")

@@ -22,6 +22,7 @@ from app.shared.base import Base
 from app.models.usuario import Usuario
 from app.models.veiculo import Veiculo
 from app.models.viagem import Viagem
+from app.models.reserva import Reserva
 
 target_metadata = Base.metadata
 

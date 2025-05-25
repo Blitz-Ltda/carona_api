@@ -1,5 +1,6 @@
 from app.schemas.viagem import ViagemRequest, ViagemResponse
 from app.services.viagem_service import *
+from app.services.usuario_service import get_usuario
 from app.shared.exception import NotFoundError
 from app.shared.dependencies import get_db, get_email_service
 from fastapi import APIRouter, Depends
@@ -29,10 +30,13 @@ def delete_viagem_view(viagem_id: int, db: Session = Depends(get_db)):
 @router.put("/finalizar_viagem/{id}", status_code=200)
 def finalizar_viagem_view(id: int, db: Session = Depends(get_db)):
     viagem_db = _get_viagem_by_id(viagem_id=id, db=db)
-    send_viagem_finalizada_email(to_address="karllisson@doity.com.br", viagem_id=id)
+    usuario_db = get_usuario(usuario_id=viagem_db.motorista_id, db=db)
+
+
+    send_viagem_finalizada_email(to_address=usuario_db.email, viagem_id=id)
 
     return finalizar_viagem(viagem_db=viagem_db, db=db)
-    
+
 def send_viagem_finalizada_email(to_address: str, viagem_id: int) -> bool:
     subject = "Viagem Finalizada"
     body = f"""
