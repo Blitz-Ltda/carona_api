@@ -25,3 +25,4 @@ class Viagem(Base):
     motorista = relationship("Usuario", back_populates="viagens")
     veiculo = relationship("Veiculo", back_populates="viagens")
     reservas = relationship("Reserva", back_populates="viagem")
+    avaliacoes = relationship("Avaliacao", back_populates="viagem")

@@ -24,4 +24,6 @@ class Usuario(Base):
     viagens = relationship("Viagem", back_populates="motorista")
     veiculos = relationship("Veiculo", back_populates="motorista")
     reservas = relationship("Reserva", back_populates="passageiro")
+    avaliacoes = relationship("Avaliacao", foreign_keys="Avaliacao.passageiro_id", back_populates="passageiro")
+    avaliacoes_motorista = relationship("Avaliacao", foreign_keys="Avaliacao.motorista_id", back_populates="motorista")
     

@@ -19,10 +19,7 @@ if config.config_file_name is not None:
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
 from app.shared.base import Base
-from app.models.usuario import Usuario
-from app.models.veiculo import Veiculo
-from app.models.viagem import Viagem
-from app.models.reserva import Reserva
+from app.models import Usuario, Veiculo, Viagem, Reserva, Avaliacao
 
 target_metadata = Base.metadata
 

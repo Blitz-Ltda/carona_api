@@ -1,5 +1,5 @@
 from app.shared.dependencies import get_db
-from app.schemas.usuario import UsuarioRequest, UsuarioResponse
+from app.schemas.usuario import UsuarioRequest, UsuarioResponse, PerfilCompletoResponse
 from app.services.usuario_service import *
 from app.shared.exception import NotFoundError
 from fastapi import APIRouter, Depends
@@ -11,6 +11,15 @@ router = APIRouter()
 @router.get('/', response_model=List[UsuarioResponse])
 def get_usuarios_view(db: Session = Depends(get_db)):
     return get_usuarios(db=db)
+
+@router.get('/{usuario_id}/perfil_completo', response_model=PerfilCompletoResponse)
+def get_perfil_completo_view(usuario_id: int, db: Session = Depends(get_db)):
+    perfil_completo = get_perfil_completo(usuario_id=usuario_id, db=db)
+
+    if not perfil_completo:
+        raise NotFoundError("Perfil completo do usuário")
+
+    return perfil_completo
 
 @router.post('/', status_code=201, response_model=UsuarioResponse)
 def create_usuario_view(usuario: UsuarioRequest, db: Session = Depends(get_db)):
