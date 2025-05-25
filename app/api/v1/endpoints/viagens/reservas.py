@@ -36,7 +36,7 @@ def get_reservas_pendentes_view(viagem_id, db: Session = Depends(get_db)) -> Lis
     
     return reservas
 
-@router.get("/{viagem_id}/reservas", response_model=List[ReservaResponse])
+@router.get("/{viagem_id}", response_model=List[ReservaResponse])
 def get_reservas_view(viagem_id, db: Session = Depends(get_db)) -> List[ReservaResponse]:
     reservas = get_reservas(viagem_id=viagem_id, db=db)
     if not reservas:

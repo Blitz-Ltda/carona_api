@@ -22,10 +22,11 @@ def update_viagem_view(viagem_id: int, viagem: ViagemRequest, db: Session = Depe
     viagem_db = _get_viagem_by_id(viagem_id=viagem_id, db=db)
     return update_viagem(viagem_db=viagem_db, db=db, viagem=viagem)
 
-@router.delete("/{viagem_id}", status_code=204)
-def delete_viagem_view(viagem_id: int, db: Session = Depends(get_db)):
-    viagem_db = _get_viagem_by_id(viagem_id=viagem_id, db=db)
-    return delete_viagem(viagem_db=viagem_db, db=db)
+
+@router.put("/iniciar_viagem/{id}", status_code=200)
+def iniciar_viagem_view(id: int, db: Session = Depends(get_db)):
+    viagem_db = _get_viagem_by_id(viagem_id=id, db=db)
+    return iniciar_viagem(viagem_db=viagem_db, db=db)
 
 @router.put("/finalizar_viagem/{id}", status_code=200)
 def finalizar_viagem_view(id: int, db: Session = Depends(get_db)):
@@ -36,6 +37,11 @@ def finalizar_viagem_view(id: int, db: Session = Depends(get_db)):
     send_viagem_finalizada_email(to_address=usuario_db.email, viagem_id=id)
 
     return finalizar_viagem(viagem_db=viagem_db, db=db)
+
+@router.delete("/{viagem_id}", status_code=204)
+def delete_viagem_view(viagem_id: int, db: Session = Depends(get_db)):
+    viagem_db = _get_viagem_by_id(viagem_id=viagem_id, db=db)
+    return delete_viagem(viagem_db=viagem_db, db=db)
 
 def send_viagem_finalizada_email(to_address: str, viagem_id: int) -> bool:
     subject = "Viagem Finalizada"
