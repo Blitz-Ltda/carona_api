@@ -17,8 +17,8 @@ def get_veiculos(db: Session) -> list[Veiculo]:
 def get_veiculos_por_motorista(motorista_id: int, db: Session) -> list[Veiculo]:
     return VeiculoRepository(db).get_by_motorista_id(motorista_id=motorista_id)
 
-def update_veiculo(veiculo_db: Veiculo, veiculo: VeiculoRequest, db: Session) -> Veiculo:   
-    for key, value in veiculo.model_dump().items():
+def update_veiculo(veiculo_db: Veiculo, veiculo: dict, db: Session) -> Veiculo:   
+    for key, value in veiculo.items():
         setattr(veiculo_db, key, value)
 
     return VeiculoRepository(db).save(veiculo_db)

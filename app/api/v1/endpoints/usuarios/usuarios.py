@@ -26,10 +26,10 @@ def create_usuario_view(usuario: UsuarioRequest, db: Session = Depends(get_db)):
     return create_usuario(db=db, usuario=usuario)
 
 @router.put('/{usuario_id}', status_code=200 ,response_model=UsuarioResponse)
-def update_usuario_view(usuario_id: int, usuario: UsuarioRequest, db: Session = Depends(get_db)):
+def update_usuario_view(usuario_id: int, usuario: dict, db: Session = Depends(get_db)):
     usuario_db = _get_usuario_by_id(usuario_id=usuario_id, db=db)
-
-    return update_usuario(usuario_db=usuario_db, db=db, usuario=usuario)
+    
+    return update_usuario(usuario_db=usuario_db, usuario=usuario, db=db)
 
 @router.delete('/{usuario_id}', status_code=204)
 def delete_usuario_view(usuario_id: int, db: Session = Depends(get_db)):

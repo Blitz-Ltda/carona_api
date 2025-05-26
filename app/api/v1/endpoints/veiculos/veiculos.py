@@ -16,10 +16,10 @@ def criar_veiculo(veiculo: VeiculoRequest, db: Session = Depends(get_db)):
     return create_veiculo(db=db, veiculo=veiculo)
 
 @router.put("/{veiculo_id}", status_code=200)
-def atualizar_veiculo(veiculo_id: int, veiculo: VeiculoRequest, db: Session = Depends(get_db)):
+def atualizar_veiculo(veiculo_id: int, veiculo: dict, db: Session = Depends(get_db)):
     veiculo_db = _get_veiculo_by_id(veiculo_id=veiculo_id, db=db)
 
-    return update_veiculo(veiculo_db=veiculo_db, db=db)
+    return update_veiculo(veiculo_db=veiculo_db, veiculo=veiculo, db=db)
 
 @router.delete("/{veiculo_id}", status_code=204)
 def deletar_veiculo(veiculo_id: int, db: Session = Depends(get_db)):

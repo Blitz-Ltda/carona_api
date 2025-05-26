@@ -29,8 +29,8 @@ def get_perfil_completo(usuario_id: int, db: Session) -> dict:
         "nota_media":  nota_media
     }
 
-def update_usuario(usuario_db: Usuario, usuario: UsuarioRequest, db: Session) -> Usuario:
-    for key, value in usuario.model_dump().items():
+def update_usuario(usuario_db: Usuario, usuario: dict, db: Session) -> Usuario:
+    for key, value in usuario.items():
         setattr(usuario_db, key, value)
 
     return UsuarioRepository(db).save(usuario_db)

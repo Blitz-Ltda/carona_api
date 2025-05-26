@@ -15,8 +15,8 @@ def get_viagem(viagem_id: int, db: Session) -> ViagemResponse:
 def get_viagens(db: Session) -> list[ViagemResponse]:
     return ViagemRepository(db).get_all()
 
-def update_viagem(viagem_db: Viagem, viagem: ViagemRequest, db: Session) -> ViagemResponse:    
-    for key, value in viagem.model_dump().items():
+def update_viagem(viagem_db: Viagem, viagem: dict, db: Session) -> ViagemResponse:    
+    for key, value in viagem.items():
         setattr(viagem_db, key, value)
 
     return ViagemRepository(db).save(viagem_db)
@@ -64,8 +64,8 @@ def get_reservas_confirmadas(viagem_id: int, db: Session) -> list[ReservaRespons
 def get_reservas(viagem_id: int, db: Session) -> list[ReservaResponse]:
     return ReservaRepository(db).get_by_viagem(viagem_id=viagem_id)
 
-def update_reserva(reserva_db: Reserva, reserva: Reserva, db: Session) -> ReservaResponse:
-    for key, value in reserva.model_dump().items():
+def update_reserva(reserva_db: Reserva, reserva: dict, db: Session) -> ReservaResponse:
+    for key, value in reserva.items():
         setattr(reserva_db, key, value)
 
     return ReservaRepository(db).save(reserva_db)

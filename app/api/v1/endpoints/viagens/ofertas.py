@@ -18,10 +18,9 @@ def create_viagem_view(oferta: ViagemRequest, db: Session = Depends(get_db)):
     return create_viagem(db=db, viagem=oferta)
 
 @router.put("/{viagem_id}", status_code=200)
-def update_viagem_view(viagem_id: int, viagem: ViagemRequest, db: Session = Depends(get_db)):
+def update_viagem_view(viagem_id: int, viagem: dict, db: Session = Depends(get_db)):
     viagem_db = _get_viagem_by_id(viagem_id=viagem_id, db=db)
-    return update_viagem(viagem_db=viagem_db, db=db, viagem=viagem)
-
+    return update_viagem(viagem_db=viagem_db, viagem=viagem, db=db)
 
 @router.put("/iniciar_viagem/{id}", status_code=200)
 def iniciar_viagem_view(id: int, db: Session = Depends(get_db)):
