@@ -1,0 +1,5 @@
+from .usuario_repository import UsuarioRepository
+from .veiculo_repository import VeiculoRepository
+from .viagem_repository import ViagemRepository
+from .reserva_repository import ReservaRepository
+from .avaliacao_repository import AvaliacaoRepository
