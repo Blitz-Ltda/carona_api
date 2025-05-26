@@ -41,14 +41,14 @@ def client(db):
 
 def test_create_veiculo(client):
     veiculo_data = {
-        "marca": "Ford",
         "modelo": "Ka",
+        "marca": "Ford",
         "ano": 2020,
         "cor": "Preto",
         "placa": "XYZ-1234",
-        "revanam": "Revanam Teste",
+        "renavam": "Revanam123",
         "capacidade": 5,
-        "tipo": "Carro",
+        "tipo": "carro",
         "motorista_id": 1
     }
 
