@@ -17,16 +17,24 @@ def get_usuarios(db: Session) -> list[Usuario]:
     return UsuarioRepository(db).get_all()
 
 def get_perfil_completo(usuario_id: int, db: Session) -> dict:
+    usuario = UsuarioRepository(db).get_by_id(usuario_id)
+    if not usuario:
+        return {}
+
     avaliacoes = AvaliacaoRepository(db).get_by_motorista(motorista_id=usuario_id)
     if not avaliacoes:
         nota_media = 0.0
     else:
         nota_media = sum(avaliacao.nota for avaliacao in avaliacoes) / len(avaliacoes)
+    
+    veiculo = VeiculoRepository(db).get_by_motorista_id(motorista_id=usuario_id)
+    if not veiculo:
+        veiculo = None
 
     return {
-        "usuario": UsuarioRepository(db).get_by_id(usuario_id),
-        "veiculo": VeiculoRepository(db).get_by_motorista_id(motorista_id=usuario_id),
-        "nota_media":  nota_media
+        "usuario": usuario,
+        "veiculo": veiculo,
+        "nota_media": nota_media
     }
 
 def update_usuario(usuario_db: Usuario, usuario: dict, db: Session) -> Usuario:

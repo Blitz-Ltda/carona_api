@@ -39,8 +39,8 @@ class MotoristaResponse(UsuarioResponse):
 
 class PerfilCompletoResponse(BaseModel):
     usuario: UsuarioBase
-    veiculo: VeiculoResponse | None = None
-    nota_media: float | None = None
+    veiculo: Optional[VeiculoResponse]
+    nota_media: float
 
     class Config:
         from_attributes = True

@@ -1,5 +1,6 @@
 from app.models import Veiculo
 from sqlalchemy.orm import Session
+from typing import Optional
 
 class VeiculoRepository:
     def __init__(self, db: Session):
@@ -18,9 +19,14 @@ class VeiculoRepository:
     def get_by_id(self, veiculo_id: int) -> Veiculo:
         return self.db.query(Veiculo).filter(Veiculo.id == veiculo_id).first()
     
-    def get_by_motorista_id(self, motorista_id: int) -> list[Veiculo]:
-        return self.db.query(Veiculo).filter(Veiculo.motorista_id == motorista_id).all()
-
+    def get_by_motorista_id(self, motorista_id: int) -> Optional[Veiculo]:
+        return (
+            self.db
+                .query(Veiculo)
+                .filter(Veiculo.motorista_id == motorista_id)
+                .first()
+        )
+    
     def get_all(self) -> list[Veiculo]:
         return self.db.query(Veiculo).all()
 
